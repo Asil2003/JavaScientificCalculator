@@ -18,6 +18,13 @@ public class CalculatorApp {
         double powerResult = Math.pow(base, exponent);
         System.out.println("Power result: " + powerResult);
 
+        System.out.print("Enter angle in degrees: ");
+        double degrees = scanner.nextDouble();
+        double radians = Math.toRadians(degrees);
+        System.out.println("sin: " + Math.sin(radians));
+        System.out.println("cos: " + Math.cos(radians));
+        System.out.println("tan: " + Math.tan(radians));
+
 
     }
 }
