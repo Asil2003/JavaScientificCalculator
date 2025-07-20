@@ -9,37 +9,32 @@ public class CalculatorApp {
         while (running) {
             displayMenu();
 
-            try {
-                System.out.print("Choose an option (1–16 or 0 to Exit): ");
-                int choice = scanner.nextInt();
+            int choice = getValidInt(scanner, "Choose an option (0 to Exit): ");
 
-                switch (choice) {
-                    case 1 -> performAddition(scanner);
-                    case 2 -> performSubtraction(scanner);
-                    case 3 -> performMultiplication(scanner);
-                    case 4 -> performDivision(scanner);
-                    case 5 -> performSquareRoot(scanner);
-                    case 6 -> performPower(scanner);
-                    case 7 -> performSine(scanner);
-                    case 8 -> performCosine(scanner);
-                    case 9 -> performTangent(scanner);
-                    case 10 -> performNaturalLog(scanner);
-                    case 11 -> performLogBase10(scanner);
-                    case 12 -> performAbsolute(scanner);
-                    case 13 -> performRound(scanner);
-                    case 14 -> performCeil(scanner);
-                    case 15 -> performFloor(scanner);
-                    case 16 -> performMinMax(scanner);
-                    case 0 -> {
-                        System.out.println("Exiting calculator. Goodbye!");
-                        running = false;
-                    }
-                    default -> System.out.println("Invalid option. Please try again.");
+            switch (choice) {
+                case 1 -> performAddition(scanner);
+                case 2 -> performSubtraction(scanner);
+                case 3 -> performMultiplication(scanner);
+                case 4 -> performDivision(scanner);
+                case 5 -> performSquareRoot(scanner);
+                case 6 -> performPower(scanner);
+                case 7 -> performSine(scanner);
+                case 8 -> performCosine(scanner);
+                case 9 -> performTangent(scanner);
+                case 10 -> performNaturalLog(scanner);
+                case 11 -> performLogBase10(scanner);
+                case 12 -> performAbsolute(scanner);
+                case 13 -> performRound(scanner);
+                case 14 -> performCeil(scanner);
+                case 15 -> performFloor(scanner);
+                case 16 -> performMinMax(scanner);
+                case 0 -> {
+                    System.out.println("👋 Exiting calculator. Goodbye!");
+                    running = false;
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter numeric values only.");
-                scanner.nextLine(); // Clear invalid input
+                default -> System.out.println("❌ Invalid option. Please choose a valid menu number.");
             }
+
             System.out.println("--------------------------------------");
         }
 
@@ -47,7 +42,7 @@ public class CalculatorApp {
     }
 
     public static void displayMenu() {
-        System.out.println("\n--- Scientific Calculator ---");
+        System.out.println("\n=== 🔢 Scientific Calculator ===");
         System.out.println("1. Add");
         System.out.println("2. Subtract");
         System.out.println("3. Multiply");
@@ -67,134 +62,147 @@ public class CalculatorApp {
         System.out.println("0. Exit");
     }
 
+    // Helper method to get a valid int from user
+    public static int getValidInt(Scanner scanner, String prompt) {
+        int num;
+        while (true) {
+            System.out.print(prompt);
+            try {
+                num = scanner.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("⚠️ Invalid input! Please enter an integer.");
+                scanner.nextLine(); // clear invalid input
+            }
+        }
+        return num;
+    }
+
+    // Helper method to get a valid double from user
+    public static double getValidDouble(Scanner scanner, String prompt) {
+        double num;
+        while (true) {
+            System.out.print(prompt);
+            try {
+                num = scanner.nextDouble();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("⚠️ Invalid input! Please enter a number.");
+                scanner.nextLine(); // clear invalid input
+            }
+        }
+        return num;
+    }
+
     public static void performAddition(Scanner scanner) {
-        System.out.print("Enter first number: ");
-        double a = scanner.nextDouble();
-        System.out.print("Enter second number: ");
-        double b = scanner.nextDouble();
-        System.out.println("Result: " + (a + b));
+        double a = getValidDouble(scanner, "Enter first number: ");
+        double b = getValidDouble(scanner, "Enter second number: ");
+        System.out.printf("✅ Result: %.4f + %.4f = %.4f%n", a, b, a + b);
     }
 
     public static void performSubtraction(Scanner scanner) {
-        System.out.print("Enter first number: ");
-        double a = scanner.nextDouble();
-        System.out.print("Enter second number: ");
-        double b = scanner.nextDouble();
-        System.out.println("Result: " + (a - b));
+        double a = getValidDouble(scanner, "Enter first number: ");
+        double b = getValidDouble(scanner, "Enter second number: ");
+        System.out.printf("✅ Result: %.4f - %.4f = %.4f%n", a, b, a - b);
     }
 
     public static void performMultiplication(Scanner scanner) {
-        System.out.print("Enter first number: ");
-        double a = scanner.nextDouble();
-        System.out.print("Enter second number: ");
-        double b = scanner.nextDouble();
-        System.out.println("Result: " + (a * b));
+        double a = getValidDouble(scanner, "Enter first number: ");
+        double b = getValidDouble(scanner, "Enter second number: ");
+        System.out.printf("✅ Result: %.4f * %.4f = %.4f%n", a, b, a * b);
     }
 
     public static void performDivision(Scanner scanner) {
-        System.out.print("Enter numerator: ");
-        double a = scanner.nextDouble();
-        System.out.print("Enter denominator: ");
-        double b = scanner.nextDouble();
-        if (b == 0) {
-            System.out.println("Error: Cannot divide by zero.");
-        } else {
-            System.out.println("Result: " + (a / b));
+        double a = getValidDouble(scanner, "Enter numerator: ");
+        double b;
+        while (true) {
+            b = getValidDouble(scanner, "Enter denominator (non-zero): ");
+            if (b != 0) break;
+            System.out.println("❌ Error: Denominator cannot be zero.");
         }
+        System.out.printf("✅ Result: %.4f / %.4f = %.4f%n", a, b, a / b);
     }
 
     public static void performSquareRoot(Scanner scanner) {
-        System.out.print("Enter number: ");
-        double num = scanner.nextDouble();
-        if (num < 0) {
-            System.out.println("Error: Cannot calculate square root of negative number.");
-        } else {
-            System.out.println("Square root: " + Math.sqrt(num));
+        double num;
+        while (true) {
+            num = getValidDouble(scanner, "Enter a non-negative number: ");
+            if (num >= 0) break;
+            System.out.println("❌ Error: Number must be non-negative.");
         }
+        System.out.printf("✅ Square root of %.4f is %.4f%n", num, Math.sqrt(num));
     }
 
     public static void performPower(Scanner scanner) {
-        System.out.print("Enter base: ");
-        double base = scanner.nextDouble();
-        System.out.print("Enter exponent: ");
-        double exp = scanner.nextDouble();
-        System.out.println("Power: " + Math.pow(base, exp));
+        double base = getValidDouble(scanner, "Enter base: ");
+        double exp = getValidDouble(scanner, "Enter exponent: ");
+        System.out.printf("✅ Result: %.4f ^ %.4f = %.4f%n", base, exp, Math.pow(base, exp));
     }
 
     public static void performSine(Scanner scanner) {
-        System.out.print("Enter angle in degrees: ");
-        double angle = scanner.nextDouble();
-        System.out.println("Sine: " + Math.sin(Math.toRadians(angle)));
+        double angle = getValidDouble(scanner, "Enter angle in degrees: ");
+        System.out.printf("✅ sin(%.4f°) = %.4f%n", angle, Math.sin(Math.toRadians(angle)));
     }
 
     public static void performCosine(Scanner scanner) {
-        System.out.print("Enter angle in degrees: ");
-        double angle = scanner.nextDouble();
-        System.out.println("Cosine: " + Math.cos(Math.toRadians(angle)));
+        double angle = getValidDouble(scanner, "Enter angle in degrees: ");
+        System.out.printf("✅ cos(%.4f°) = %.4f%n", angle, Math.cos(Math.toRadians(angle)));
     }
 
     public static void performTangent(Scanner scanner) {
-        System.out.print("Enter angle in degrees: ");
-        double angle = scanner.nextDouble();
-        // Handle special cases where tangent is undefined
+        double angle = getValidDouble(scanner, "Enter angle in degrees: ");
         double modAngle = angle % 180;
         if (modAngle == 90 || modAngle == -90) {
-            System.out.println("Error: Tangent undefined at " + angle + " degrees.");
+            System.out.println("❌ Error: Tangent undefined at " + angle + " degrees.");
         } else {
-            System.out.println("Tangent: " + Math.tan(Math.toRadians(angle)));
+            System.out.printf("✅ tan(%.4f°) = %.4f%n", angle, Math.tan(Math.toRadians(angle)));
         }
     }
 
     public static void performNaturalLog(Scanner scanner) {
-        System.out.print("Enter number: ");
-        double num = scanner.nextDouble();
-        if (num <= 0) {
-            System.out.println("Error: Natural logarithm undefined for non-positive numbers.");
-        } else {
-            System.out.println("Natural log: " + Math.log(num));
+        double num;
+        while (true) {
+            num = getValidDouble(scanner, "Enter a positive number: ");
+            if (num > 0) break;
+            System.out.println("❌ Error: Number must be positive.");
         }
+        System.out.printf("✅ Natural log of %.4f is %.4f%n", num, Math.log(num));
     }
 
     public static void performLogBase10(Scanner scanner) {
-        System.out.print("Enter number: ");
-        double num = scanner.nextDouble();
-        if (num <= 0) {
-            System.out.println("Error: Logarithm base 10 undefined for non-positive numbers.");
-        } else {
-            System.out.println("Log base 10: " + Math.log10(num));
+        double num;
+        while (true) {
+            num = getValidDouble(scanner, "Enter a positive number: ");
+            if (num > 0) break;
+            System.out.println("❌ Error: Number must be positive.");
         }
+        System.out.printf("✅ Log base 10 of %.4f is %.4f%n", num, Math.log10(num));
     }
 
     public static void performAbsolute(Scanner scanner) {
-        System.out.print("Enter number: ");
-        double num = scanner.nextDouble();
-        System.out.println("Absolute value: " + Math.abs(num));
+        double num = getValidDouble(scanner, "Enter a number: ");
+        System.out.printf("✅ Absolute value of %.4f is %.4f%n", num, Math.abs(num));
     }
 
     public static void performRound(Scanner scanner) {
-        System.out.print("Enter number: ");
-        double num = scanner.nextDouble();
-        System.out.println("Rounded: " + Math.round(num));
+        double num = getValidDouble(scanner, "Enter a number: ");
+        System.out.printf("✅ Rounded value of %.4f is %d%n", num, Math.round(num));
     }
 
     public static void performCeil(Scanner scanner) {
-        System.out.print("Enter number: ");
-        double num = scanner.nextDouble();
-        System.out.println("Ceiling: " + Math.ceil(num));
+        double num = getValidDouble(scanner, "Enter a number: ");
+        System.out.printf("✅ Ceiling value of %.4f is %.4f%n", num, Math.ceil(num));
     }
 
     public static void performFloor(Scanner scanner) {
-        System.out.print("Enter number: ");
-        double num = scanner.nextDouble();
-        System.out.println("Floor: " + Math.floor(num));
+        double num = getValidDouble(scanner, "Enter a number: ");
+        System.out.printf("✅ Floor value of %.4f is %.4f%n", num, Math.floor(num));
     }
 
     public static void performMinMax(Scanner scanner) {
-        System.out.print("Enter first number: ");
-        double a = scanner.nextDouble();
-        System.out.print("Enter second number: ");
-        double b = scanner.nextDouble();
-        System.out.println("Min: " + Math.min(a, b));
-        System.out.println("Max: " + Math.max(a, b));
+        double a = getValidDouble(scanner, "Enter first number: ");
+        double b = getValidDouble(scanner, "Enter second number: ");
+        System.out.printf("✅ Min(%.4f, %.4f) = %.4f%n", a, b, Math.min(a, b));
+        System.out.printf("✅ Max(%.4f, %.4f) = %.4f%n", a, b, Math.max(a, b));
     }
 }
