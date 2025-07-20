@@ -25,6 +25,9 @@ public class CalculatorApp {
         System.out.println("cos: " + Math.cos(radians));
         System.out.println("tan: " + Math.tan(radians));
 
+        System.out.println("Natural log of E: " + Math.log(Math.E));
+        System.out.println("Base-10 log of 100: " + Math.log10(100));
+
 
     }
 }
