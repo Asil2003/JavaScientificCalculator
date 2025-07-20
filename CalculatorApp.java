@@ -28,6 +28,11 @@ public class CalculatorApp {
         System.out.println("Natural log of E: " + Math.log(Math.E));
         System.out.println("Base-10 log of 100: " + Math.log10(100));
 
+        System.out.println("Absolute value of -10: " + Math.abs(-10));
+        System.out.println("Round of 3.6: " + Math.round(3.6));
+        System.out.println("Ceil of 4.1: " + Math.ceil(4.1));
+        System.out.println("Floor of 4.9: " + Math.floor(4.9));
+
 
     }
 }
