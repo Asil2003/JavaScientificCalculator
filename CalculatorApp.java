@@ -4,115 +4,67 @@ import java.util.Scanner;
 public class CalculatorApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int choice;
+        boolean running = true;
 
-        // Main loop to keep calculator running
-        while (true) {
-            showMenu();  // Display operations menu
-            System.out.print("Choose an operation (0 to Exit): ");
+        while (running) {
+            displayMenu();
 
             try {
-                choice = scanner.nextInt();  // Read user's choice
-            } catch (InputMismatchException e) {
-                System.out.println("❌ Invalid input! Please enter a number.");
-                scanner.nextLine();  // Clear invalid input
-                continue;
-            }
+                System.out.print("Choose an option (1–16 or 0 to Exit): ");
+                int choice = scanner.nextInt();
 
-            if (choice == 0) {
-                System.out.println("👋 Goodbye! Thank you for using the Scientific Calculator.");
-                break;
-            }
-
-            try {
                 switch (choice) {
-                    case 1:
-                        squareRoot(scanner);
-                        break;
-                    case 2:
-                        power(scanner);
-                        break;
-                    case 3:
-                        trigonometric(scanner);
-                        break;
-                    case 4:
-                        logarithms();
-                        break;
-                    case 5:
-                        roundFunctions();
-                        break;
-                    case 6:
-                        minMax();
-                        break;
-                    default:
-                        System.out.println("❗ Invalid choice. Please select a number from 0 to 6.");
+                    case 1 -> performAddition(scanner);
+                    case 2 -> performSubtraction(scanner);
+                    case 3 -> performMultiplication(scanner);
+                    case 4 -> performDivision(scanner);
+                    case 5 -> performSquareRoot(scanner);
+                    case 6 -> performPower(scanner);
+                    case 7 -> performSine(scanner);
+                    case 8 -> performCosine(scanner);
+                    case 9 -> performTangent(scanner);
+                    case 10 -> performNaturalLog(scanner);
+                    case 11 -> performLogBase10(scanner);
+                    case 12 -> performAbsolute(scanner);
+                    case 13 -> performRound(scanner);
+                    case 14 -> performCeil(scanner);
+                    case 15 -> performFloor(scanner);
+                    case 16 -> performMinMax(scanner);
+                    case 0 -> {
+                        System.out.println("Exiting calculator. Goodbye!");
+                        running = false;
+                    }
+                    default -> System.out.println("Invalid option. Please try again.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("⚠️ Invalid number entered. Please try again.");
-                scanner.nextLine();  // Clear invalid input
+                System.out.println("Invalid input. Please enter numeric values only.");
+                scanner.nextLine(); // Clear invalid input
             }
-
-            System.out.println("--------------------------------------");
         }
 
-        scanner.close();  // Close the scanner at end
+        scanner.close();
     }
 
-    // Display the operations menu
-    public static void showMenu() {
-        System.out.println("\n📐 === Scientific Calculator Menu ===");
-        System.out.println("1️⃣  Square Root");
-        System.out.println("2️⃣  Power (base ^ exponent)");
-        System.out.println("3️⃣  Trigonometric (sin, cos, tan)");
-        System.out.println("4️⃣  Logarithms (Natural, Base-10)");
-        System.out.println("5️⃣  Absolute / Round / Ceil / Floor");
-        System.out.println("6️⃣  Min / Max of two numbers");
-        System.out.println("0️⃣  Exit");
+    public static void displayMenu() {
+        System.out.println("\n--- Scientific Calculator ---");
+        System.out.println("1. Add");
+        System.out.println("2. Subtract");
+        System.out.println("3. Multiply");
+        System.out.println("4. Divide");
+        System.out.println("5. Square Root");
+        System.out.println("6. Power");
+        System.out.println("7. Sine");
+        System.out.println("8. Cosine");
+        System.out.println("9. Tangent");
+        System.out.println("10. Natural Logarithm (ln)");
+        System.out.println("11. Logarithm Base 10");
+        System.out.println("12. Absolute Value");
+        System.out.println("13. Round");
+        System.out.println("14. Ceiling");
+        System.out.println("15. Floor");
+        System.out.println("16. Min/Max");
+        System.out.println("0. Exit");
     }
 
-    // Calculate square root of a number
-    public static void squareRoot(Scanner scanner) {
-        System.out.print("Enter a number to find its square root: ");
-        double number = scanner.nextDouble();
-        System.out.println("✅ Square root of " + number + " is: " + Math.sqrt(number));
-    }
-
-    // Raise base to the power of exponent
-    public static void power(Scanner scanner) {
-        System.out.print("Enter base: ");
-        double base = scanner.nextDouble();
-        System.out.print("Enter exponent: ");
-        double exponent = scanner.nextDouble();
-        System.out.println("✅ " + base + " raised to the power of " + exponent + " is: " + Math.pow(base, exponent));
-    }
-
-    // Calculate sin, cos, tan of an angle in degrees
-    public static void trigonometric(Scanner scanner) {
-        System.out.print("Enter angle in degrees: ");
-        double degrees = scanner.nextDouble();
-        double radians = Math.toRadians(degrees);  // Convert degrees to radians
-        System.out.println("✅ sin(" + degrees + "°) = " + Math.sin(radians));
-        System.out.println("✅ cos(" + degrees + "°) = " + Math.cos(radians));
-        System.out.println("✅ tan(" + degrees + "°) = " + Math.tan(radians));
-    }
-
-    // Show logarithmic values
-    public static void logarithms() {
-        System.out.println("✅ Natural log of e: " + Math.log(Math.E));  // log base e
-        System.out.println("✅ Base-10 log of 100: " + Math.log10(100)); // log base 10
-    }
-
-    // Show absolute, round, ceil and floor examples
-    public static void roundFunctions() {
-        System.out.println("✅ Absolute value of -10: " + Math.abs(-10));
-        System.out.println("✅ Rounded value of 3.6: " + Math.round(3.6));
-        System.out.println("✅ Ceil value of 4.1: " + Math.ceil(4.1));
-        System.out.println("✅ Floor value of 4.9: " + Math.floor(4.9));
-    }
-
-    // Show minimum and maximum between two numbers
-    public static void minMax() {
-        System.out.println("✅ Min of 5 and 10: " + Math.min(5, 10));
-        System.out.println("✅ Max of 5 and 10: " + Math.max(5, 10));
-    }
+    // We'll define methods like performAddition(scanner) in upcoming steps
 }
