@@ -7,5 +7,9 @@ public class CalculatorApp {
         double number = scanner.nextDouble();
         System.out.println("You entered: " + number);
         scanner.close();
+
+        double result = Math.sqrt(number);
+        System.out.println("Square root: " + result);
+
     }
 }
