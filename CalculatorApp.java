@@ -40,6 +40,7 @@ public class CalculatorApp {
                 System.out.println("Invalid input. Please enter numeric values only.");
                 scanner.nextLine(); // Clear invalid input
             }
+            System.out.println("--------------------------------------");
         }
 
         scanner.close();
@@ -66,5 +67,134 @@ public class CalculatorApp {
         System.out.println("0. Exit");
     }
 
-    // We'll define methods like performAddition(scanner) in upcoming steps
+    public static void performAddition(Scanner scanner) {
+        System.out.print("Enter first number: ");
+        double a = scanner.nextDouble();
+        System.out.print("Enter second number: ");
+        double b = scanner.nextDouble();
+        System.out.println("Result: " + (a + b));
+    }
+
+    public static void performSubtraction(Scanner scanner) {
+        System.out.print("Enter first number: ");
+        double a = scanner.nextDouble();
+        System.out.print("Enter second number: ");
+        double b = scanner.nextDouble();
+        System.out.println("Result: " + (a - b));
+    }
+
+    public static void performMultiplication(Scanner scanner) {
+        System.out.print("Enter first number: ");
+        double a = scanner.nextDouble();
+        System.out.print("Enter second number: ");
+        double b = scanner.nextDouble();
+        System.out.println("Result: " + (a * b));
+    }
+
+    public static void performDivision(Scanner scanner) {
+        System.out.print("Enter numerator: ");
+        double a = scanner.nextDouble();
+        System.out.print("Enter denominator: ");
+        double b = scanner.nextDouble();
+        if (b == 0) {
+            System.out.println("Error: Cannot divide by zero.");
+        } else {
+            System.out.println("Result: " + (a / b));
+        }
+    }
+
+    public static void performSquareRoot(Scanner scanner) {
+        System.out.print("Enter number: ");
+        double num = scanner.nextDouble();
+        if (num < 0) {
+            System.out.println("Error: Cannot calculate square root of negative number.");
+        } else {
+            System.out.println("Square root: " + Math.sqrt(num));
+        }
+    }
+
+    public static void performPower(Scanner scanner) {
+        System.out.print("Enter base: ");
+        double base = scanner.nextDouble();
+        System.out.print("Enter exponent: ");
+        double exp = scanner.nextDouble();
+        System.out.println("Power: " + Math.pow(base, exp));
+    }
+
+    public static void performSine(Scanner scanner) {
+        System.out.print("Enter angle in degrees: ");
+        double angle = scanner.nextDouble();
+        System.out.println("Sine: " + Math.sin(Math.toRadians(angle)));
+    }
+
+    public static void performCosine(Scanner scanner) {
+        System.out.print("Enter angle in degrees: ");
+        double angle = scanner.nextDouble();
+        System.out.println("Cosine: " + Math.cos(Math.toRadians(angle)));
+    }
+
+    public static void performTangent(Scanner scanner) {
+        System.out.print("Enter angle in degrees: ");
+        double angle = scanner.nextDouble();
+        // Handle special cases where tangent is undefined
+        double modAngle = angle % 180;
+        if (modAngle == 90 || modAngle == -90) {
+            System.out.println("Error: Tangent undefined at " + angle + " degrees.");
+        } else {
+            System.out.println("Tangent: " + Math.tan(Math.toRadians(angle)));
+        }
+    }
+
+    public static void performNaturalLog(Scanner scanner) {
+        System.out.print("Enter number: ");
+        double num = scanner.nextDouble();
+        if (num <= 0) {
+            System.out.println("Error: Natural logarithm undefined for non-positive numbers.");
+        } else {
+            System.out.println("Natural log: " + Math.log(num));
+        }
+    }
+
+    public static void performLogBase10(Scanner scanner) {
+        System.out.print("Enter number: ");
+        double num = scanner.nextDouble();
+        if (num <= 0) {
+            System.out.println("Error: Logarithm base 10 undefined for non-positive numbers.");
+        } else {
+            System.out.println("Log base 10: " + Math.log10(num));
+        }
+    }
+
+    public static void performAbsolute(Scanner scanner) {
+        System.out.print("Enter number: ");
+        double num = scanner.nextDouble();
+        System.out.println("Absolute value: " + Math.abs(num));
+    }
+
+    public static void performRound(Scanner scanner) {
+        System.out.print("Enter number: ");
+        double num = scanner.nextDouble();
+        System.out.println("Rounded: " + Math.round(num));
+    }
+
+    public static void performCeil(Scanner scanner) {
+        System.out.print("Enter number: ");
+        double num = scanner.nextDouble();
+        System.out.println("Ceiling: " + Math.ceil(num));
+    }
+
+    public static void performFloor(Scanner scanner) {
+        System.out.print("Enter number: ");
+        double num = scanner.nextDouble();
+        System.out.println("Floor: " + Math.floor(num));
+    }
+
+    public static void performMinMax(Scanner scanner) {
+        System.out.print("Enter first number: ");
+        double a = scanner.nextDouble();
+        System.out.print("Enter second number: ");
+        double b = scanner.nextDouble();
+        System.out.println("Min: " + Math.min(a, b));
+        System.out.println("Max: " + Math.max(a, b));
+    }
 }
